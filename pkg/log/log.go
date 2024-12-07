@@ -12,27 +12,30 @@ func log_with_level(level string, message string) {
 		file = "unknown"
 		line = 0
 	}
-
-	log.Printf("[%s] %s:%d - %s\n", level, file, line, message)
+	if (level == "Debug") {
+		log.Printf("[%s] %s:%d - %s\n", level, file, line, message)
+	} else {
+		log.Printf("[%s] - %s\n", level, message)
+	}
 }
 
-func Debug[T any](message string, err T) {
+func Debug(message string) {
 	log_with_level("DEBUG", message)
 }
 
-func Info[T any](message string, err T) {
+func Info(message string) {
 	log_with_level("INFO", message)
 }
 
-func Warn[T any](message string, err T) {
+func Warn(message string) {
 	log_with_level("WARN", message)
 }
 
-func Error[T any](message string, err T) {
+func Error(message string) {
 	log_with_level("ERROR", message)
 }
 
-func Fatal[T any](message string, err T) {
+func Fatal(message string) {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	_, file, line, ok := runtime.Caller(1)
 	if !ok {
